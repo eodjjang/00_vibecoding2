@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>지오·윤오 영어 단어 테스트</title>
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind (CDN) + config (must be loaded before Tailwind) -->
+    <script src="./tailwind.config.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="bg-[var(--light)] text-[var(--dark)] antialiased">
+    <a class="skip-link" href="#quiz">퀴즈로 바로가기</a>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 border-b border-black/10 bg-[var(--light)]/80 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <div class="flex items-center gap-3">
+          <div
+            class="grid h-10 w-10 place-items-center rounded-2xl bg-theme-1 text-white shadow-sm"
+            aria-hidden="true"
+          >
+            😈
+          </div>
+          <div class="leading-tight">
+            <p class="text-sm font-extrabold tracking-tight">지오·윤오 전용</p>
+            <p class="text-xs text-black/60">영어 단어 테스트</p>
+          </div>
+        </div>
+
+        <nav class="hidden items-center gap-4 text-sm font-bold md:flex" aria-label="페이지 내 이동">
+          <a class="nav-link" href="#benefits">장점</a>
+          <a class="nav-link" href="#features">비교</a>
+          <a class="nav-link" href="#pricing">학원 vs 집</a>
+          <a class="nav-link" href="#process">프로세스</a>
+          <a class="nav-link" href="#quiz">퀴즈</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- 1) Hero -->
+      <section class="relative overflow-hidden">
+        <div class="bg-grid pointer-events-none absolute inset-0 opacity-70" aria-hidden="true"></div>
+        <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 md:grid-cols-2 md:py-20">
+          <div class="reveal-on-scroll">
+            <p
+              class="inline-flex items-center gap-2 rounded-full bg-[#F28705]/15 px-4 py-2 text-sm font-extrabold text-theme-1 ring-1 ring-[#F28705]/30"
+            >
+              <span aria-hidden="true">🔥</span> 오늘의 미션: 지옥 탈출
+            </p>
+            <h1 class="mt-5 text-4xl font-black leading-tight tracking-tight md:text-5xl">
+              빠라빠라바라밤~!<br />
+              😈 영어 테스트 지옥에 오신 걸 환영합니다!
+            </h1>
+            <p class="mt-5 text-base leading-relaxed text-black/70 md:text-lg">
+              여기서 무사히 벗어날 수 있는 방법은 오직 하나,<br />
+              준비된 모든 테스트를 완벽하게 통과하는 것뿐!<br />
+              단, 끝까지 살아남는 자에겐 엄청난 경품이 기다리고 있다구! 🎁
+            </p>
+
+            <form id="startForm" class="mt-7 grid gap-3 rounded-3xl bg-white/60 p-4 ring-1 ring-black/10">
+              <div class="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-end">
+                <label class="grid gap-2">
+                  <span class="text-sm font-extrabold">도전자 이름(닉네임)</span>
+                  <input
+                    id="playerName"
+                    name="playerName"
+                    type="text"
+                    maxlength="12"
+                    placeholder="예) 지오 / 윤오"
+                    class="h-12 w-full rounded-2xl border border-black/15 bg-white px-4 text-base font-bold outline-none ring-0 transition focus:border-[var(--primary)] focus:ring-4 focus:ring-[var(--primary)]/20"
+                    autocomplete="off"
+                    required
+                  />
+                </label>
+                <button
+                  id="startButton"
+                  type="submit"
+                  class="h-12 rounded-2xl bg-[var(--accent)] px-5 text-base font-black text-white shadow-sm transition hover:brightness-110 active:translate-y-[1px] sm:whitespace-nowrap"
+                >
+                  🚀 영어천재가 되기 위한 테스트 시작하기
+                </button>
+              </div>
+              <p id="formError" class="hidden text-sm font-bold text-theme-5" role="alert"></p>
+              <p class="text-xs font-semibold text-black/60">
+                팁: 이름을 적으면, 퀴즈 결과 화면에 멋지게 뜹니다.
+              </p>
+            </form>
+          </div>
+
+          <div class="reveal-on-scroll">
+            <div class="relative rounded-[2.5rem] bg-[var(--dark)] p-1 shadow-xl">
+              <div class="rounded-[2.25rem] bg-[var(--light)] p-6">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-extrabold text-theme-1">오늘의 탈출 게이지</p>
+                  <p class="text-xs font-black text-black/60">정답 = ⭐ 충전</p>
+                </div>
+                <div class="mt-3 rounded-2xl bg-black/10 p-2">
+                  <div class="h-5 w-0 rounded-xl bg-theme-2 transition-all" style="width: 35%"></div>
+                </div>
+
+                <div class="mt-6 grid gap-4 md:grid-cols-2">
+                  <div class="rounded-3xl bg-white p-4 ring-1 ring-black/10">
+                    <p class="text-3xl font-black">⏱️</p>
+                    <p class="mt-2 text-sm font-black">시간과의 승부</p>
+                    <p class="mt-1 text-sm text-black/60">
+                      빠르게 고르면 더 멋진 연출이 따라옵니다!
+                    </p>
+                  </div>
+                  <div class="rounded-3xl bg-white p-4 ring-1 ring-black/10">
+                    <p class="text-3xl font-black">🎉</p>
+                    <p class="mt-2 text-sm font-black">성공하면 폭죽!</p>
+                    <p class="mt-1 text-sm text-black/60">
+                      100% 달성 시, 화려하게 탈출 성공 화면이 나와요.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="pointer-events-none absolute -right-4 -top-5 rotate-6" aria-hidden="true">
+                <div class="rounded-3xl bg-theme-3 px-4 py-2 text-sm font-black text-[var(--dark)] shadow-lg">
+                  경품 교환권?! 🎁
+                </div>
+              </div>
+              <div class="pointer-events-none absolute -bottom-4 -left-4 -rotate-6" aria-hidden="true">
+                <div class="rounded-3xl bg-theme-4 px-4 py-2 text-sm font-black text-white shadow-lg">
+                  도망 금지 😈
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-2 text-xs font-bold text-black/60">
+              <span class="rounded-full bg-white px-3 py-2 ring-1 ring-black/10">반응형</span>
+              <span class="rounded-full bg-white px-3 py-2 ring-1 ring-black/10">게임 느낌</span>
+              <span class="rounded-full bg-white px-3 py-2 ring-1 ring-black/10">긍정 피드백</span>
+              <span class="rounded-full bg-white px-3 py-2 ring-1 ring-black/10">스크롤 애니메이션</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) Service Introduction -->
+      <section id="benefits" class="section-dark">
+        <div class="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div class="reveal-on-scroll">
+            <h2 class="text-3xl font-black tracking-tight md:text-4xl">서비스 소개</h2>
+            <p class="mt-2 text-white/80">
+              “외우기”가 아니라 “탈출”하는 느낌으로, 부담 없이 재미있게!
+            </p>
+          </div>
+
+          <div class="mt-10 grid gap-4 md:grid-cols-3">
+            <article class="card-dark reveal-on-scroll">
+              <p class="text-3xl font-black" aria-hidden="true">🎮</p>
+              <h3 class="mt-3 text-lg font-black">스릴 만점</h3>
+              <p class="mt-2 text-sm text-white/80">
+                지루한 암기는 가라!<br />
+                게임보다 더 쫄깃하고<br />
+                심장 떨리는 단어 퀴즈 배틀!
+              </p>
+            </article>
+            <article class="card-dark reveal-on-scroll">
+              <p class="text-3xl font-black" aria-hidden="true">🤖</p>
+              <h3 class="mt-3 text-lg font-black">AI 맞춤형</h3>
+              <p class="mt-2 text-sm text-white/80">
+                AI가 내 실력을 찰떡같이!<br />
+                지오와 윤오의 레벨에<br />
+                딱 맞는 문제만 쏙쏙 등장!
+              </p>
+            </article>
+            <article class="card-dark reveal-on-scroll">
+              <p class="text-3xl font-black" aria-hidden="true">🏆</p>
+              <h3 class="mt-3 text-lg font-black">초특급 보상</h3>
+              <p class="mt-2 text-sm text-white/80">
+                통과만 하면 대박 경품!<br />
+                열심히 노력해서 퀴즈를 깨면<br />
+                쏟아지는 엄청난 선물!
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) Features Section -->
+      <section id="features">
+        <div class="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div class="reveal-on-scroll">
+            <h2 class="text-3xl font-black tracking-tight md:text-4xl">
+              재미없는 혼자 공부? VS 꿀잼 지옥 탈출 퀘스트!
+            </h2>
+            <p class="mt-3 text-black/70">비교해 보면 차이가 바로 보입니다.</p>
+          </div>
+
+          <div class="mt-10 grid gap-4 md:grid-cols-2">
+            <div class="compare-card reveal-on-scroll">
+              <div class="flex items-center gap-3">
+                <div class="grid h-12 w-12 place-items-center rounded-2xl bg-black/10 text-2xl" aria-hidden="true">
+                  🥱
+                </div>
+                <p class="text-lg font-black">혼자 공부하기</p>
+              </div>
+              <p class="mt-3 text-sm text-black/70">
+                억지로 외우면 금방 까먹고<br />
+                보상이 없어서 재미없음...
+              </p>
+              <ul class="mt-4 grid gap-2 text-sm font-semibold text-black/70">
+                <li class="flex items-start gap-2"><span aria-hidden="true">-</span><span>동기부여가 약해요</span></li>
+                <li class="flex items-start gap-2"><span aria-hidden="true">-</span><span>진행 상황이 잘 안 보여요</span></li>
+                <li class="flex items-start gap-2"><span aria-hidden="true">-</span><span>성취감이 금방 사라져요</span></li>
+              </ul>
+            </div>
+
+            <div class="compare-card compare-card--accent reveal-on-scroll">
+              <div class="flex items-center gap-3">
+                <div class="grid h-12 w-12 place-items-center rounded-2xl bg-[#95A614]/20 text-2xl" aria-hidden="true">
+                  🤩
+                </div>
+                <p class="text-lg font-black">지옥 탈출 퀘스트</p>
+              </div>
+              <p class="mt-3 text-sm text-black/70">
+                퀴즈를 풀다 보면 저절로 외워지고<br />
+                성공하면 초특급 경품 획득!
+              </p>
+              <ul class="mt-4 grid gap-2 text-sm font-semibold text-black/70">
+                <li class="flex items-start gap-2"><span aria-hidden="true">+</span><span>즉시 피드백(정답/오답)</span></li>
+                <li class="flex items-start gap-2"><span aria-hidden="true">+</span><span>별점/게이지로 진행이 한눈에</span></li>
+                <li class="flex items-start gap-2"><span aria-hidden="true">+</span><span>끝까지 하고 싶어지는 연출</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) Pricing Section -->
+      <section id="pricing" class="section-dark">
+        <div class="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div class="reveal-on-scroll">
+            <h2 class="text-3xl font-black tracking-tight md:text-4xl">
+              무거운 가방 메고 학원 가기 VS 방구석에서 랭킹 찍기
+            </h2>
+            <p class="mt-3 text-white/80">시간도 체력도 아끼고, 재미는 더 크게!</p>
+          </div>
+
+          <div class="mt-10 grid gap-4 md:grid-cols-2">
+            <div class="card-dark reveal-on-scroll">
+              <p class="text-3xl font-black" aria-hidden="true">🚶‍♂️</p>
+              <h3 class="mt-3 text-lg font-black">학원 다니기</h3>
+              <p class="mt-2 text-sm text-white/80">
+                오고 가는 데 시간 뺏기고<br />
+                딱딱한 책상에서 졸음과 싸움!
+              </p>
+            </div>
+            <div class="card-dark reveal-on-scroll">
+              <p class="text-3xl font-black" aria-hidden="true">🛋️</p>
+              <h3 class="mt-3 text-lg font-black">집에서 랭킹 찍기</h3>
+              <p class="mt-2 text-sm text-white/80">
+                집에서 뒹굴거리다 바로 접속!<br />
+                스피디하게 끝내는 AI 단어 배틀!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5) Process Section -->
+      <section id="process">
+        <div class="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div class="reveal-on-scroll">
+            <h2 class="text-3xl font-black tracking-tight md:text-4xl">4단계 프로세스</h2>
+            <p class="mt-3 text-black/70">딱 4번만 하면… 지옥 탈출 성공!</p>
+          </div>
+
+          <ol class="mt-10 grid gap-4 md:grid-cols-4">
+            <li class="step reveal-on-scroll">
+              <div class="step-badge">Step 1</div>
+              <p class="mt-3 text-base font-black">🚪 지옥문 오픈</p>
+              <p class="mt-2 text-sm text-black/70">
+                “시작하기” 버튼을 눌러<br />
+                떨리는 마음으로 퀘스트에 입장하세요.
+              </p>
+            </li>
+            <li class="step reveal-on-scroll">
+              <div class="step-badge">Step 2</div>
+              <p class="mt-3 text-base font-black">⚔️ AI와 단어 배틀</p>
+              <p class="mt-2 text-sm text-black/70">
+                제한 시간 안에 제시되는<br />
+                영어 단어의 뜻을 정확하게 맞혀주세요.
+              </p>
+            </li>
+            <li class="step reveal-on-scroll">
+              <div class="step-badge">Step 3</div>
+              <p class="mt-3 text-base font-black">⭐ 탈출 게이지 충전</p>
+              <p class="mt-2 text-sm text-black/70">
+                정답을 맞힐 때마다<br />
+                탈출을 위한 별점 게이지가 차오릅니다!
+              </p>
+            </li>
+            <li class="step reveal-on-scroll">
+              <div class="step-badge">Step 4</div>
+              <p class="mt-3 text-base font-black">🎉 지옥 탈출 & 경품 획득</p>
+              <p class="mt-2 text-sm text-black/70">
+                100% 달성 시, 화려한 폭죽과 함께<br />
+                경품 교환권 지급!
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 6) Main Quiz Section -->
+      <section id="quiz" class="section-dark">
+        <div class="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div class="reveal-on-scroll">
+              <h2 class="text-3xl font-black tracking-tight md:text-4xl">메인 퀴즈</h2>
+              <p class="mt-2 text-white/80">
+                과연 이 단어의 뜻은 무엇일까? (빨리 골라! 시간이 가고 있다구! ⏱️)
+              </p>
+            </div>
+
+            <div class="reveal-on-scroll">
+              <button
+                id="restartTopButton"
+                type="button"
+                class="rounded-2xl bg-white/10 px-4 py-3 text-sm font-black text-white ring-1 ring-white/15 transition hover:bg-white/15"
+              >
+                다시 시작하기
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-8 grid gap-4 lg:grid-cols-[1.2fr_.8fr]">
+            <div class="card-dark reveal-on-scroll">
+              <!-- Status bar -->
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <p id="statusText" class="text-sm font-black">
+                  🔥 지옥 탈출까지 남은 단어: <span id="remainingCount">5</span>개!
+                </p>
+                <p class="text-sm font-black">
+                  현재 모은 별: <span id="starText" aria-label="별점">⭐⭐⭐</span>
+                </p>
+              </div>
+
+              <div class="mt-4 rounded-2xl bg-white/10 p-2 ring-1 ring-white/10">
+                <div class="flex items-center justify-between px-1 pb-2 text-xs font-extrabold text-white/80">
+                  <span>탈출 게이지</span>
+                  <span><span id="progressPercent">0</span>%</span>
+                </div>
+                <div class="h-4 overflow-hidden rounded-xl bg-white/10">
+                  <div
+                    id="progressBar"
+                    class="h-4 w-0 rounded-xl bg-theme-2 transition-all"
+                    aria-label="진행 바"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="mt-4 flex items-center justify-between rounded-2xl bg-white/5 px-4 py-3 ring-1 ring-white/10">
+                <p class="text-xs font-extrabold text-white/80">남은 시간</p>
+                <p class="text-lg font-black"><span id="timeLeft">12</span>s</p>
+              </div>
+
+              <!-- Question -->
+              <div id="questionCard" class="mt-6 rounded-3xl bg-white p-6 text-[var(--dark)]">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-sm font-extrabold text-black/60">이번 단어</p>
+                    <p id="wordLine" class="mt-2 text-4xl font-black tracking-tight">
+                      <span id="wordEmoji" aria-hidden="true">🍎</span>
+                      <span id="wordText">apple</span>
+                    </p>
+                  </div>
+                  <span
+                    id="resultBadge"
+                    class="hidden rounded-2xl px-3 py-2 text-sm font-black"
+                    aria-live="polite"
+                  ></span>
+                </div>
+
+                <p id="exampleLine" class="mt-4 rounded-2xl bg-black/5 px-4 py-3 text-sm font-semibold text-black/70">
+                  I have a red apple.
+                </p>
+
+                <div id="choices" class="mt-5 grid gap-3 sm:grid-cols-2"></div>
+              </div>
+            </div>
+
+            <!-- Side panel -->
+            <aside class="reveal-on-scroll">
+              <div class="rounded-[2.5rem] bg-[var(--dark)] p-1 shadow-xl">
+                <div class="rounded-[2.25rem] bg-white/95 p-6 text-[var(--dark)]">
+                  <h3 class="text-lg font-black">오늘의 규칙</h3>
+                  <ul class="mt-3 grid gap-2 text-sm font-semibold text-black/70">
+                    <li>1) 버튼으로만 고르기 (입력 강요 없음)</li>
+                    <li>2) 정답이면 ⭐ 충전 + 기분 좋은 효과</li>
+                    <li>3) 오답이면 “살짝” 흔들리고 다시 도전</li>
+                    <li>4) 5문제 끝나면 탈출 성공/실패 화면!</li>
+                  </ul>
+
+                  <div class="mt-6 rounded-3xl bg-black/5 p-5">
+                    <p class="text-sm font-black">도전자</p>
+                    <p id="playerNameBadge" class="mt-1 text-xl font-black">아직 없음</p>
+                    <p class="mt-2 text-xs font-semibold text-black/60">
+                      위에서 이름을 입력하고 시작해 보세요.
+                    </p>
+                  </div>
+
+                  <div id="finalPanel" class="mt-6 hidden rounded-3xl bg-[#95A614]/15 p-5 ring-1 ring-[#95A614]/25">
+                    <p id="finalTitle" class="text-lg font-black"></p>
+                    <p id="finalDesc" class="mt-2 text-sm font-semibold text-black/70"></p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                      <button
+                        id="restartButton"
+                        type="button"
+                        class="rounded-2xl bg-[var(--primary-dark)] px-4 py-3 text-sm font-black text-white transition hover:bg-[var(--primary)] active:translate-y-[1px]"
+                      >
+                        💀 처음부터 다시 도전하기
+                      </button>
+                      <a
+                        class="rounded-2xl bg-white px-4 py-3 text-sm font-black text-[var(--dark)] ring-1 ring-black/10 transition hover:bg-black/5"
+                        href="#benefits"
+                      >
+                        위로 올라가 보기
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 7) Footer -->
+    <footer class="border-t border-black/10 bg-[var(--light)]">
+      <div class="mx-auto max-w-6xl px-4 py-10">
+        <div class="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
+          <p class="text-sm font-bold text-black/70">
+            ⓒ 2026 지오&윤오를 위한 전용 AI 단어장.<br />
+            <a
+              href="./terms.html"
+              class="underline-offset-2 hover:underline"
+            >
+              All rights reserved.
+            </a>
+            (도망칠 곳은 없다 😈)
+          </p>
+          <button
+            id="restartFooterButton"
+            type="button"
+            class="rounded-2xl bg-[var(--dark)] px-5 py-4 text-sm font-black text-white shadow-sm transition hover:brightness-110 active:translate-y-[1px]"
+          >
+            💀 아쉽게 실패했다면? 처음부터 다시 도전하기
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

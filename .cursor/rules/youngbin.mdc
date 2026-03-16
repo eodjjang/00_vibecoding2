@@ -1,0 +1,93 @@
+---
+alwaysApply: true
+---
+# 프로젝트 개요
+- 프로젝트명: 지오/윤오를 위한 영어 단어 테스트 웹 애플리케이션
+- 타겟 사용자: 초등학생 
+- 핵심 목표: 아이들이 거부감 없이 직관적이고 흥미롭게 영어 단어를 학습하고 테스트할 수 있는 환경 제공
+
+**중요 사항**
+- Git 관리 규칙
+  - **Git 명령어는 Github mcp 를 사용해서 수행합니다**
+- 테스트 규칙
+  - **puppeteer mcp 를 사용해서 브라우저 상에서 다양한 테스트를 수행합니다**
+
+# 기술 스택
+- HTML5 (시맨틱 마크업)
+- CSS3
+- Vanilla JavaScript (복잡한 프레임워크 배제)
+- Tailwind CSS (스타일링 및 유틸리티 클래스 적용)
+
+# 레이아웃 및 페이지 구조
+웹페이지는 명확한 섹션 구조로 분리하여 개발합니다.
+1. **Hero Section** (히어로 섹션): 
+   - 아이들의 시선을 끄는 환영 문구와 타이틀.
+   - 직관적이고 큼직한 "영어천재가 되기위한 테스트 시작하기" (Call-to-Action) 버튼.
+2. **Service Introduction**: 본 프로젝트를 진행했을때 얻을 수 있는 3가지 핵심 장점 카드
+3. **Features Section**: 본 프로젝트 vs 혼자 공부하기 비교
+4. **Pricing Section**: 본 프로젝트 vs 학원 다니기 비교
+5. **Process Section**: 4단계 프로세스 설명
+6. Main Quiz Section (메인 세션):
+   - 단어 플래시카드 또는 직관적인 객관식 버튼 영역.
+   - 현재 진행 상황을 알 수 있는 시각적 프로그래스 바(Progress bar) 또는 별점 획득 UI.
+7. Footer (푸터):
+   - 간단한 저작권 표시 및 '다시 시작하기' 버튼.
+
+# 디자인 및 색상 가이드 (Tailwind CSS 설정)
+지정된 5가지 색상을 메인 테마로 사용합니다. `tailwind.config.js`의 `theme.extend.colors`에 아래 색상을 등록하여 유틸리티 클래스(예: `bg-theme-1`, `text-theme-3`)로 활용해야 합니다.
+- theme-1 (Dark Green): `#2D4005`
+- theme-2 (Lime Green): `#95A614`
+- theme-3 (Orange): `#F28705`
+- theme-4 (Red Orange): `#D95829`
+- theme-5 (Dark Red): `#A61212`
+
+- **색상 사용 가이드**:
+  - 메인 배경: --light (#F2EED8)
+  - 텍스트: --dark (#011C40)
+  - 주요 버튼: --primary-dark (#1243A6)
+  - 호버 효과: --primary (#1D64F2)
+  - CTA 버튼: --accent (#F24822)
+  - 섹션 구분: --dark (#011C40) 배경에 흰색 텍스트
+- **폰트**: 
+  - 제목: Pretendard 또는 Noto Sans KR Bold
+  - 본문: Pretendard 또는 Noto Sans KR Regular
+- **애니메이션**: 
+  - Fade-in, Slide-up 효과
+  - 호버 효과 및 마이크로 인터랙션
+
+# UI/UX 및 개발 지침
+1. 직관성과 긍정적 피드백:
+   - 아이들이 타겟이므로 UI는 부드러운 곡선(Rounded corners)과 큼직한 폰트를 사용합니다.
+   - 정답을 맞췄을 때와 틀렸을 때의 시각적 피드백(색상 변화, 가벼운 흔들림 애니메이션 등)을 명확하게 제공합니다.
+2. 강압적인 입력 방식 금지:
+   - 단순히 텍스트를 반복해서 여러 번 입력하게 만드는 방식의 UI는 절대 구현하지 않습니다.
+   - 플래시카드 뒤집기, 알맞은 뜻 버튼 클릭하기 등 게임처럼 가볍게 터치/클릭하며 진행할 수 있도록 구성합니다.
+3. JavaScript 로직 및 상태 관리:
+   - ES6+ 모던 문법을 사용합니다.
+   - `currentQuestionIndex`, `score` 등의 상태를 명확히 관리합니다.
+4. 반응형 웹:
+   - Tailwind의 반응형 유틸리티(`sm:`, `md:` 등)를 활용하여 모바일과 태블릿 환경에서 최적화된 화면을 보여주어야 합니다.
+5. 프레임워크나 빌드 도구 사용 금지
+6. 모든 코드는 각각의 파일에 포함 (HTML, CSS, JS 분리)
+7. ES6+ 문법 사용 가능
+8. 반응형 디자인 필수 (Mobile-first approach)
+9. 부드러운 스크롤 애니메이션 구현
+10. 인터섹션 옵저버를 활용한 스크롤 애니메이션
+11. 폼 유효성 검사 구현
+
+# 더미 데이터 (Dummy Data)
+JavaScript 파일 내에 다음 배열을 사용하여 퀴즈 로직을 구현합니다. 이모지와 예문을 활용해 시각적 흥미를 유발합니다.
+
+```javascript
+const vocabularyData = [
+  { id: 1, word: "apple", meaning: "사과", emoji: "🍎", example: "I have a red apple." },
+  { id: 2, word: "friend", meaning: "친구", emoji: "👫", example: "She is my good friend." },
+  { id: 3, word: "water", meaning: "물", emoji: "💧", example: "Drink some water." },
+  { id: 4, word: "happy", meaning: "행복한", emoji: "😊", example: "I feel very happy today." },
+  { id: 5, word: "school", meaning: "학교", emoji: "🏫", example: "Let's go to school." },
+  { id: 6, word: "book", meaning: "책", emoji: "📚", example: "Read this fun book." },
+  { id: 7, word: "family", meaning: "가족", emoji: "👨‍👩‍👧‍👦", example: "I love my family." },
+  { id: 8, word: "play", meaning: "놀다", emoji: "⚽", example: "Let's play outside." },
+  { id: 9, word: "travel", meaning: "여행하다", emoji: "✈️", example: "We will travel by plane." },
+  { id: 10, word: "sleep", meaning: "자다", emoji: "😴", example: "It is time to sleep." }
+];
